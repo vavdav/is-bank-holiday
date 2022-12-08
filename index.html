@@ -6,6 +6,63 @@
   </head>
 
   <body>
-    Content of the document......
+    <h1>NL Holidays</h1>
+    <ul>
+      <li>Nieuwjaarsdag (New Year’s Day): Saturday 1 January 2022</li>
+      <li>Goede vrijdag (Good Friday): Friday 15 April 2022</li>
+      <li>Eerste en tweede paasdag (Easter Sunday and Easter Monday): Sunday 17 and Monday 18 April 2022</li>
+      <li>Koningsdag (King’s Day): Wednesday 27 April 2022</li>
+      <li>Bevrijdingsdag (Liberation Day): Thursday 5 May 2022</li>
+      <li>Hemelvaartsdag (Ascension Day): Thursday 26 May 2022</li>
+      <li>Eerste en tweede pinksterdag (Whit Sunday and Whit Monday): Sunday 5 June and Monday 6 June 2022</li>
+      <li>Eerste en tweede kerstdag (Christmas Day and Boxing Day): Sunday 25 and Monday 26 December 2022</li>
+    </ul>
+
+    <div>
+      <h2>This month:</h2>
+      first date:
+      <span class="date1"></span><br />
+      second date:
+      <span class="date2"></span>
+    </div>
+    <div>
+      <h2>Next month:</h2>
+      first date:
+      <span class="daten1"></span><br />
+      second date:
+      <span class="daten2"></span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <!-- <script src="./holiday.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/date-holidays@3.16.11/dist/umd.min.js"></script> -->
+    <script>
+      // Holidays.init("nl");
+      const checkIsWeekend = (day) => {
+        const weekday = day.day();
+        return weekday === 0 || weekday === 6;
+      };
+
+      const computeFirstNonWeekendDay = (date) => {
+        let tempDate = date;
+        while (checkIsWeekend(tempDate)) {
+          tempDate = tempDate.date(tempDate.date() + 1);
+        }
+        return tempDate;
+      };
+
+      const today = dayjs();
+      const from = computeFirstNonWeekendDay(today.date(15)).date();
+      const to = computeFirstNonWeekendDay(today.date(25)).date();
+
+      console.log(document.querySelector(".date1"));
+      document.querySelector(".date1").innerHTML = from;
+      document.querySelector(".date2").innerHTML = to;
+
+      const fromn = computeFirstNonWeekendDay(today.add(1, "M").date(15)).date();
+      const ton = computeFirstNonWeekendDay(today.add(1, "M").date(25)).date();
+      document.querySelector(".daten1").innerHTML = fromn;
+      document.querySelector(".daten2").innerHTML = ton;
+    </script>
   </body>
 </html>
